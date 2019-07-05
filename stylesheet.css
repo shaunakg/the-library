@@ -1,0 +1,152 @@
+body {
+	background: linear-gradient(to right, #292E49, #536976);
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+	margin: 5px;
+}
+
+#fast_mode {
+	color: red;
+	display: none;
+}
+
+#login_options {
+	/*Initialise the login options to NOT display*/
+	display:none;
+	background: #FFF;
+	border-radius: 10px;
+
+}
+
+.align-right {
+	position: absolute;
+	right: 15px;
+}
+
+#fm-bar-off {
+	color: yellow;
+	cursor: pointer;
+	user-select: none;
+}
+
+.nav-info-top {
+	position: absolute;
+	top: 0%;
+	width: calc(100% - 20px);
+	left: 0;
+	margin: 0 !important;
+	padding: 10px;
+	height: 25px;
+	background: black;
+	color: yellow;
+	z-index: 999;
+	transition: 2s;
+}
+
+.backwrap {
+	align-content: center;
+	justify-content: center;
+	align-self: center;
+	text-align: center;
+
+	background: rgb(228, 223, 200);
+	border-radius: 10px;
+	box-shadow:  17px 10px 84px -4px #4D1919;
+
+	margin: auto;
+
+	top: 15%;
+	position: absolute;
+	width: 30%;
+
+	right: 0;
+	left: 0;
+
+	padding: 5px;
+}
+
+input[type=text], input[type=password], input[type=textarea] {
+	border-radius: 5px;
+	padding: 3px;
+	width: fit-content;
+
+	background: linear-gradient(to right, white, inherit, white);
+}
+
+input[type=submit] {
+	background: lightblue;
+	border-radius: 3px;
+	/* box-shadow: 2px 2px 1px gray; */
+	padding: 5px;
+	width: 100px;
+}
+
+label {
+	font-family: 'Courier New', Courier, monospace;
+}
+
+.circle-text {
+
+	font-family: 'Open Sans', Helvetica, sans-serif;
+
+	display: inline-block;
+
+	--height: 160px;
+	align-content: center;
+	align-items: center;
+	text-align: center;
+
+	transition: 1s;
+
+	padding: 10px;
+
+	vertical-align: middle;
+	line-height: var(--height);
+
+	font-size: 2em;
+	font-weight: bolder;
+
+	width: var(--height);
+	height: var(--height);
+	border-radius: 50%;
+
+	background: linear-gradient(to right, #536976, #283A77);
+	box-shadow: none;
+
+	color: rgb(221, 241, 209);
+}
+
+.circle-image {
+	display: none;
+
+	--height: 160px;
+	align-content: center;
+	align-items: center;
+
+	transition: 1s;
+
+	padding: 10px;
+
+	vertical-align: middle;
+	line-height: var(--height);
+
+	width: var(--height);
+	height: var(--height);
+	border-radius: 50%;
+
+	background: linear-gradient(to right, #536976, #283A77);
+	box-shadow:  17px 10px 84px -4px #4D1919;
+
+	color: rgb(221, 241, 209);
+}
+
+/* To disable animations and make it SNAPPY - overrides all previous properties */
+
+.fast {
+	transition: none !important;
+	animation: none !important;
+}
+
+.noshadow {
+	box-shadow: none !important;
+	text-shadow: none !important;
+}

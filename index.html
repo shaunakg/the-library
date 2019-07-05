@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<head>
+	<title>Library Login Page | Version 2.0</title>
+
+	<link rel="stylesheet" href="stylesheet.css">
+	<link id="open_sans_import" href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+</head>
+
+<p id="fm_header" class="nav-info-top">Website not loading? <a id="fm_on_button" href="#fast">Enable fast mode.</a><span id="fm-bar-off" onclick="disableFmBar();" class="align-right">X</span></p>
+
+<div id="backwrap" class="backwrap" onmouseover="makeAvatarBigger();" onmouseout="makeAvatarSmaller();">
+	<br><br>
+	<center><span id="login_status" class="circle-text">Library</span><img class="circle-image" id="avatar" src=""></center><br><br>
+
+	<form action="login/login.php" method="POST" id="login_form">
+	<label for="user">Username:</label> <input maxlength="20" oninput="userVerify();" type="text" id="user" name="user" placeholder="abc123" autocomplete="username"><br>
+	<label for="pw">Password:</label> <input maxlength="100" type="password" id="pw" name="pw" placeholder="*******" autocomplete="current-password"><br><br>
+	<input type="hidden" name="action" value="login">
+	<input type="submit" value="Go!">
+	</form>
+
+	<p id="just_created_msg"><strong>Your account has been created, please log in.</strong></p>
+	<p id="login_before_use_msg"><strong>Please login or create an account before use.</strong></p>
+	<p id="logged_out_msg"><strong>You have been signed out.</strong></p><br>
+	<span class="small-text"><i>If you've logged in already, <a href="books/index.php">click here</a> to skip to the library page.</i></span><br><br>
+</div>
+
+<script>
+
+document.getElementById("just_created_msg").style.display = "none";
+document.getElementById("login_before_use_msg").style.display = "none";
+document.getElementById("logged_out_msg").style.display = "none";
+
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('just_created')) {
+	document.getElementById("just_created_msg").style.display = "inline-block";
+} else if (urlParams.get('login_before_use')) {
+	document.getElementById("login_before_use_msg").style.display = "inline-block";
+} else if (urlParams.get('logged_out')) {
+	document.getElementById("logged_out_msg").style.display = "inline-block";
+}
+
+var fm_header = document.getElementById("fm_header");
+
+function fmOn() {
+	console.log("Hello, developer. You may see some errors below because external fonts are now disabled.");
+
+	document.getElementById("open_sans_import").href = "";
+	fm_header.innerHTML = "Animations and external fonts are disabled. <a href=\"\">Switch off fast mode</a><span id=\"fm-bar-off\" onclick=\"disableFmBar();\" class=\"align-right\">X</span>";
+
+	var all = document.getElementsByTagName("*");
+
+	for (var i=0, max=all.length; i < max; i++) {
+		all[i].classList.add("fast", "noshadow");
+	}
+}
+
+function disableFmBar() {
+	console.log("Disabling fm bar");
+	fm_header.style.top = "-40px";
+	fm_header.style.opacity = "0";
+}
+
+if (document.location.hash=="#fast") {
+	fmOn();
+} else {
+	document.getElementById("fm_on_button").onclick = fmOn;
+}
+
+var user = document.getElementById("user");
+var pw = document.getElementById("pw");
+var userimg = document.getElementById("usercorrectimg");
+var pageheight = document.getElementById("pageheight");
+
+var loginResult = urlParams.get('loginResult');
+var avatar = urlParams.get('avatar');
+var loginStatus = document.getElementById("login_status");
+var avatarHolder = document.getElementById("avatar");
+var loginForm = document.getElementById("login_form");
+
+avatarHolder.style.boxShadow = "none";
+
+function userVerify() {
+	if (user.value.includes(" ")) {
+		user.value = user.value.replace(" ","");
+	}
+}
+
+function makeAvatarBigger() {
+	avatarHolder.style.padding = "0px";
+	avatarHolder.style.setProperty("--height", "180px");
+}
+
+function makeAvatarSmaller() {
+	avatarHolder.style.padding = "10px";
+	avatarHolder.style.setProperty("--height", "160px");
+}
+
+function htest() {
+	document.getElementsByClassName("backwrap")[0].style.top = pageheight.value + "%";
+}
+
+// Uncomment below if you don't want the 'Library' logo with a shadow - personally I think it looks bad
+// loginStatus.style.boxShadow = "none";
+user.onblur = function () {loginStatus.style.boxShadow = "none"};
+user.onfocus = function () {loginStatus.style.boxShadow = "3px 3px 20px black"};
+pw.onblur = function () {loginStatus.style.boxShadow = "none"};
+pw.onfocus = function () {loginStatus.style.boxShadow = "3px 3px 20px black"};
+
+if (loginResult == "borrower") {
+	loginStatus.innerHTML = "Borrower.";
+} else if (loginResult == "librarian") {
+	loginStatus.innerHTML = "Librarian.";
+} else if (loginResult == "incorrect") {
+	loginStatus.innerHTML = "Incorrect.";
+}
+
+if (avatar) {
+	avatarHolder.src = avatar;
+	avatarHolder.style.display = "inline-block";
+	loginStatus.style.display = "none";
+}
+
+</script>
